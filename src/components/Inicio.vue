@@ -16,7 +16,7 @@
         cols="12"
       >
         <p>
-          Temos atualmente 0 usuarios no nosso banco de dados
+          Temos atualmente 0 usuários no nosso banco de dados
         </p>
       </v-col>
       <v-col
@@ -29,21 +29,47 @@
       </v-col>
       <v-col
         class="mb-3"
-        cols="12"
+        cols="15"
       >
-        <p>
-          Criar Usuários
-        </p>
-        <p>
+        <v-btn
+          color="primary"
+          class="button"
+          dark
+          href="/create"
+        >
+          Criar Usuário
+        </v-btn>
+        <v-btn
+          color="primary"
+          class="button"
+          dark
+          href="/list"
+        >
           Listar Usuários
-        </p>
-        <p>
-          Editar Usuários
-        </p>
-        <p>
-          Deletar Usuários
-        </p>
+        </v-btn>
+        <v-btn
+          color="primary"
+          class="button"
+          dark
+          href="/update"
+        >
+          Atualizar Usuário
+        </v-btn>
+        <v-btn
+          color="primary"
+          class="button"
+          dark
+          href="/delete"
+        >
+          Deletar Usuário
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
+<style>
+.button {
+  margin: 0 10px 10px 0;
+}
+</style>

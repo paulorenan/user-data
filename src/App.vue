@@ -1,11 +1,5 @@
 <template>
   <v-app id="inspire">
-    <!-- <v-navigation-drawer
-      v-model="drawer"
-      app
-    > -->
-      <!--  -->
-    <!-- </v-navigation-drawer> -->
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -61,10 +55,11 @@
     data: () => ({ 
       drawer: null ,
       items: [
+        {title: 'Inicio', icon: 'mdi-home', to: '/'},
         {title: 'Criar Usuário', icon: 'mdi-account-plus', to: '/create'},
         {title: 'Listar Usuários', icon: 'mdi-account-multiple', to: '/list'},
-        {title: 'Editar Usuário', icon: 'mdi-account-edit', to : '/edit'},
-        {title: 'Deletar Usuário', icon: 'mdi-delete', to:'/delete'},
+        {title: 'Editar Usuário', icon: 'mdi-account-edit', to : '/update'},
+        {title: 'Deletar Usuário', icon: 'mdi-delete', to: '/delete'}
       ],
       }),
   }
