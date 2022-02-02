@@ -41,7 +41,7 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>DataBase Usuários</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -62,5 +62,8 @@
         {title: 'Deletar Usuário', icon: 'mdi-delete', to: '/delete'}
       ],
       }),
+    mounted () {
+      console.log(this.$firebase)
+    }
   }
 </script>
