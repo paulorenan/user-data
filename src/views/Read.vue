@@ -12,6 +12,9 @@
           <th class="text-left">
             Idade
           </th>
+          <th class="text-left">
+            Id
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +25,7 @@
           <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.age }}</td>
+          <td>{{ item.id }}</td>
         </tr>
       </tbody>
     </template>
@@ -38,7 +42,7 @@ import db from '../firebase'
     },
     async created () {
       const users = await db.collection('users').get()
-      this.users = users.docs.map(doc => doc.data())
+      this.users = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
       console.log(this.users)
     }
   }

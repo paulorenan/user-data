@@ -30,16 +30,26 @@
             required
           ></v-text-field>
         </v-col>
-
           <v-col
             cols="12"
             md="4"
           >
           <v-text-field
-            v-model="firstname"
+            v-model="name"
             :rules="nameRules"
             :counter="50"
             label="Nome"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="age"
+            :rules="ageRules"
+            label="Idade"
             required
           ></v-text-field>
         </v-col>
@@ -58,7 +68,7 @@
           :disabled="!valid"
           color="success"
           class="mr-4"
-          @click="validate"
+          @click="atualizarUsuario"
         >
           Editar
         </v-btn>
@@ -75,18 +85,23 @@
   </v-form>
 </template>
 <script>
+  import db from '../firebase'
   export default {
     data: () => ({
       valid: false,
       id: '',
       idRules: [
         (v) => !!v || 'Id é obrigatório',
-        (v) => /^\d+$/.test(v) || 'Id deve ser um número',
       ],
-      firstname: '',
+      name: '',
       nameRules: [
         v => !!v || 'Nome é obrigatório',
         v => v.length <= 50 || 'Nome dever ter no máximo 50 caracteres',
+      ],
+      age: '',
+      ageRules: [
+        v => !!v || 'Idade é obrigatório',
+        v => /^\d+$/.test(v) || 'Idade deve ser um número',
       ],
       email: '',
       emailRules: [
@@ -97,6 +112,21 @@
     methods: {
       validate () {
         this.$refs.form.validate()
+      },
+      atualizarUsuario() {
+        if(this.name === '' || this.age === '' || this.email === '') {
+          this.$refs.form.validate()
+          return
+        }
+        db.collection('users').doc(this.id).update({
+          name: this.name,
+          email: this.email,
+          age: parseInt(this.age),
+        })
+        .then(() => {
+          this.reset()
+          this.$refs.form.reset()
+        })
       },
       reset () {
         this.$refs.form.reset()
