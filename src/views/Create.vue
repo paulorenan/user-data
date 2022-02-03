@@ -24,10 +24,21 @@
           md="4"
         >
           <v-text-field
-            v-model="firstname"
+            v-model="name"
             :rules="nameRules"
             :counter="50"
             label="Nome"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="age"
+            :rules="ageRules"
+            label="Idade"
             required
           ></v-text-field>
         </v-col>
@@ -46,7 +57,7 @@
           :disabled="!valid"
           color="success"
           class="mr-4"
-          @click="validate"
+          @click="criarUsuario"
         >
           Criar
         </v-btn>
@@ -63,13 +74,19 @@
   </v-form>
 </template>
 <script>
+  import db from '../firebase'
   export default {
     data: () => ({
       valid: false,
-      firstname: '',
+      name: '',
       nameRules: [
         v => !!v || 'Nome é obrigatório',
         v => v.length <= 50 || 'Nome dever ter no máximo 50 caracteres',
+      ],
+      age: '',
+      ageRules: [
+        v => !!v || 'Idade é obrigatório',
+        v => /^\d+$/.test(v) || 'Idade deve ser um número',
       ],
       email: '',
       emailRules: [
@@ -78,8 +95,16 @@
       ],
     }),
     methods: {
-      validate () {
-        this.$refs.form.validate()
+      criarUsuario () {
+        if (this.name === '' || this.age === '' || this.email === '') {
+          return
+        }
+        db.collection('users').add({
+          name: this.name,
+          age: parseInt(this.age),
+          email: this.email,
+        })
+        this.reset()
       },
       reset () {
         this.$refs.form.reset()
