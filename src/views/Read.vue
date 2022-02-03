@@ -93,7 +93,6 @@ import db from '../firebase'
       const users = await db.collection('users').get()
       this.backup = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
       this.users = this.backup
-      console.log(this.users)
     },
     methods: {
       ordenarPorNome() {

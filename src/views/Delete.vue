@@ -136,7 +136,6 @@ import db from '../firebase'
         this.user = []
         const users = await db.collection('users').get()
         const user = users.docs.find(doc => doc.id === this.id.trim())
-        console.log(user);
         if (user) {
           this.user = [{...user.data(), id: user.id}]
           this.loading = false
