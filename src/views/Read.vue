@@ -12,22 +12,35 @@
         </h2>
       </v-col>
       <v-col
+        class="pl-6 mt-3"
+        cols="6"
+      >
+      <p>
+        Procurar por Nome:
+      </p>
+      <v-text-field
+        v-model="search"
+        label="Nome"
+        @keyup="searchUsuario"
+      ></v-text-field>
+      </v-col>
+      <v-col
         class="pl-6 mb-2"
-        cols="12"
+        cols="6"
       >
       <p>
         Ordenar por:
       </p>
-      <v-btn small color="primary" @click="ordenarPorNome">
+      <v-btn small class="mx-1 my-1" color="primary" @click="ordenarPorNome">
         Nome
       </v-btn>
-      <v-btn small class="ml-3" color="primary" @click="ordenarPorIdade">
+      <v-btn small class="mx-1 my-1" color="primary" @click="ordenarPorIdade">
         Idade
       </v-btn>
-      <v-btn small class="ml-3" color="primary" @click="ordenarPorEmail">
+      <v-btn small class="mx-1 my-1" color="primary" @click="ordenarPorEmail">
         E-mail
       </v-btn>
-      <v-btn small class="ml-3" color="primary" @click="ordenarPorId">
+      <v-btn small class="mx-1 my-1" color="primary" @click="ordenarPorId">
         Id
       </v-btn>
       </v-col>
@@ -71,12 +84,15 @@ import db from '../firebase'
   export default {
     data () {
       return {
-        users: []
+        backup: [],
+        users: [],
+        search: '',
       }
     },
     async created () {
       const users = await db.collection('users').get()
-      this.users = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
+      this.backup = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
+      this.users = this.backup
       console.log(this.users)
     },
     methods: {
@@ -91,7 +107,11 @@ import db from '../firebase'
       },
       ordenarPorId() {
         this.users.sort((a, b) => a.id.localeCompare(b.id))
-      }
+      },
+      searchUsuario() {
+        console.log(this.search);
+        this.users = this.backup.filter(user => user.name.toLowerCase().includes(this.search.toLowerCase()))
+      },
     }
   }
 </script>
