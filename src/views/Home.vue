@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-2">
     <v-row justify="center">
       <v-col
         class="mb-5"
@@ -54,7 +54,7 @@
           dark
           to="/update"
         >
-          Atualizar Usuário
+          Editar Usuário
         </v-btn>
         <v-btn
           color="primary"

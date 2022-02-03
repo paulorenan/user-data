@@ -1,15 +1,35 @@
 <template>
-  <v-container>
+  <v-container class="pl-0">
     <v-row
       justify="center"
     >
       <v-col
-        class="mb-3"
+        class="pl-6 mt-3"
         cols="12"
       >
         <h2 class="headline font-weight-bold">
           Lista de Usuarios
         </h2>
+      </v-col>
+      <v-col
+        class="pl-6 mb-2"
+        cols="12"
+      >
+      <p>
+        Ordenar por:
+      </p>
+      <v-btn small color="primary" @click="ordenarPorNome">
+        Nome
+      </v-btn>
+      <v-btn small class="ml-3" color="primary" @click="ordenarPorIdade">
+        Idade
+      </v-btn>
+      <v-btn small class="ml-3" color="primary" @click="ordenarPorEmail">
+        E-mail
+      </v-btn>
+      <v-btn small class="ml-3" color="primary" @click="ordenarPorId">
+        Id
+      </v-btn>
       </v-col>
     </v-row>
     <v-simple-table>
@@ -58,6 +78,20 @@ import db from '../firebase'
       const users = await db.collection('users').get()
       this.users = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
       console.log(this.users)
+    },
+    methods: {
+      ordenarPorNome() {
+        this.users.sort((a, b) => a.name.localeCompare(b.name))
+      },
+      ordenarPorIdade() {
+        this.users.sort((a, b) => a.age - b.age)
+      },
+      ordenarPorEmail() {
+        this.users.sort((a, b) => a.email.localeCompare(b.email))
+      },
+      ordenarPorId() {
+        this.users.sort((a, b) => a.id.localeCompare(b.id))
+      }
     }
   }
 </script>

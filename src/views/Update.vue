@@ -1,5 +1,6 @@
 <template>
-  <v-form 
+  <v-form
+  class="mx-4 my-2"
   v-model="valid"
   ref="form"
   lazy-validation
@@ -67,7 +68,7 @@
         <v-btn
           :disabled="!valid"
           color="success"
-          class="mr-4"
+          class="ml-2"
           @click="atualizarUsuario"
         >
           Editar
