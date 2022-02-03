@@ -57,7 +57,7 @@
       items: [
         {title: 'Inicio', icon: 'mdi-home', to: '/'},
         {title: 'Criar Usuário', icon: 'mdi-account-plus', to: '/create'},
-        {title: 'Listar Usuários', icon: 'mdi-account-multiple', to: '/list'},
+        {title: 'Listar Usuários', icon: 'mdi-account-multiple', to: '/read'},
         {title: 'Editar Usuário', icon: 'mdi-account-edit', to : '/update'},
         {title: 'Deletar Usuário', icon: 'mdi-delete', to: '/delete'}
       ],

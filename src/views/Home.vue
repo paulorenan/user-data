@@ -43,7 +43,7 @@
           color="primary"
           class="button"
           dark
-          to="/list"
+          to="/read"
         >
           Listar Usuários
         </v-btn>
@@ -70,15 +70,16 @@
 </template>
 
 <script>
-// import db from '../firebase'
+import db from '../firebase'
 export default {
   data() {
     return {
-    users: 20,
+    users: 0,
     }
   },
-  created: () => {
-    console.log(this.users);
+  async created () {
+    const users = await db.collection('users').get()
+    this.users = users.size
   },
   methods: {
     clica() {
