@@ -15,7 +15,7 @@
         class="pl-6 mt-3"
         cols="6"
       >
-      <p>
+      <p class="mb-0">
         Procurar por Nome:
       </p>
       <v-text-field
@@ -109,7 +109,6 @@ import db from '../firebase'
         this.users.sort((a, b) => a.id.localeCompare(b.id))
       },
       searchUsuario() {
-        console.log(this.search);
         this.users = this.backup.filter(user => user.name.toLowerCase().includes(this.search.toLowerCase()))
       },
     }

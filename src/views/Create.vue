@@ -5,6 +5,24 @@
   ref="form"
   lazy-validation
   >
+  <nav>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="4000"
+      top
+      :color="snackbarColor"
+    >
+    <span>
+      {{ snackbarText }}
+    </span>
+    <v-btn
+      text
+      @click="snackbar = false"
+    >
+      Fechar
+    </v-btn>
+    </v-snackbar>
+  </nav>
     <v-container>
       <v-row
         class="mb-3"
@@ -59,6 +77,7 @@
           color="success"
           class="ml-2"
           @click="criarUsuario"
+          :loading="loading"
         >
           Criar
         </v-btn>
@@ -71,6 +90,10 @@
   export default {
     data: () => ({
       valid: false,
+      loading: false,
+      snackbar: false,
+      snackbarText: '',
+      snackbarColor: '',
       name: '',
       nameRules: [
         v => !!v || 'Nome é obrigatório',
@@ -93,12 +116,23 @@
           this.$refs.form.validate()
           return
         }
+        this.loading = true
         db.collection('users').add({
           name: this.name,
           age: parseInt(this.age),
           email: this.email,
+        }).then(() => {
+          this.loading = false
+          this.reset()
+          this.snackbarText = 'Usuário criado com sucesso'
+          this.snackbarColor = 'success'
+          this.snackbar = true
+        }).catch(() => {
+          this.snackbarText = 'Erro ao criar usuário'
+          this.snackbarColor = 'error'
+          this.snackbar = true
+          this.loading = false
         })
-        this.reset()
       },
       reset () {
         this.$refs.form.reset()

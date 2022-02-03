@@ -5,6 +5,26 @@
   ref="form"
   lazy-validation
   >
+    <nav>
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="4000"
+        top
+        :color="snackbarColor"
+      >
+        <span>
+          {{ snackbarText }}
+        </span>
+        <v-btn
+          flat
+          class="ml-4"
+          text
+          @click="snackbar = false"
+        >
+          Fechar
+        </v-btn>
+      </v-snackbar>
+    </nav>
     <v-container>
       <v-row
         class="mb-3"
@@ -70,6 +90,7 @@
           color="success"
           class="ml-2"
           @click="atualizarUsuario"
+          :loading="loading"
         >
           Editar
         </v-btn>
@@ -82,7 +103,11 @@
   export default {
     data: () => ({
       valid: false,
+      loading: false,
       id: '',
+      snackbar: false,
+      snackbarText: '',
+      snackbarColor: '',
       idRules: [
         (v) => !!v || 'Id é obrigatório',
       ],
@@ -108,7 +133,8 @@
           this.$refs.form.validate()
           return
         }
-        db.collection('users').doc(this.id).update({
+        this.loading = true
+        db.collection('users').doc(this.id.trim()).update({
           name: this.name,
           email: this.email,
           age: parseInt(this.age),
@@ -116,6 +142,15 @@
         .then(() => {
           this.reset()
           this.$refs.form.reset()
+          this.loading = false
+          this.snackbarText = 'Usuário atualizado com sucesso'
+          this.snackbarColor = 'success'
+          this.snackbar = true
+        }).catch(() => {
+          this.loading = false
+          this.snackbarText = 'Erro ao atualizar usuário'
+          this.snackbarColor = 'error'
+          this.snackbar = true
         })
       },
       reset () {
