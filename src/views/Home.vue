@@ -74,7 +74,7 @@ import db from '../firebase'
 export default {
   data() {
     return {
-    users: 0,
+    users: '',
     }
   },
   async created () {

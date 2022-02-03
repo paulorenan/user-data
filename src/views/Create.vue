@@ -61,14 +61,6 @@
         >
           Criar
         </v-btn>
-
-        <v-btn
-          color="error"
-          class="mr-4"
-          @click="reset"
-        >
-          Limpar ENtradas
-        </v-btn>
       </v-row>
     </v-container>
   </v-form>
@@ -97,6 +89,7 @@
     methods: {
       criarUsuario () {
         if (this.name === '' || this.age === '' || this.email === '') {
+          this.$refs.form.validate()
           return
         }
         db.collection('users').add({

@@ -72,14 +72,6 @@
         >
           Editar
         </v-btn>
-
-        <v-btn
-          color="error"
-          class="mr-4"
-          @click="reset"
-        >
-          Limpar Entradas
-        </v-btn>
       </v-row>
     </v-container>
   </v-form>
@@ -110,11 +102,8 @@
       ],
     }),
     methods: {
-      validate () {
-        this.$refs.form.validate()
-      },
       atualizarUsuario() {
-        if(this.name === '' || this.age === '' || this.email === '') {
+        if(this.name === '' || this.age === '' || this.email === '' || this.id === '') {
           this.$refs.form.validate()
           return
         }
