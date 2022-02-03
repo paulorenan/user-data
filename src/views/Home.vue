@@ -80,11 +80,6 @@ export default {
   async created () {
     const users = await db.collection('users').get()
     this.users = users.size
-  },
-  methods: {
-    clica() {
-      console.log('clicou');
-    }
   }
 }
 </script>

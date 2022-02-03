@@ -44,7 +44,7 @@
       <v-toolbar-title>DataBase Usuários</v-toolbar-title>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="mx-4 my-2">
       <router-view/>
     </v-main>
   </v-app>
