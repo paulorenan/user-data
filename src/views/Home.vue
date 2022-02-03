@@ -16,7 +16,7 @@
         cols="12"
       >
         <p>
-          Temos atualmente 0 usuários no nosso banco de dados
+          Temos atualmente {{users}} usuários no nosso banco de dados
         </p>
       </v-col>
       <v-col
@@ -48,6 +48,7 @@
           Listar Usuários
         </v-btn>
         <v-btn
+          
           color="primary"
           class="button"
           dark
@@ -67,6 +68,25 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+// import db from '../firebase'
+export default {
+  data() {
+    return {
+    users: 20,
+    }
+  },
+  created: () => {
+    console.log(this.users);
+  },
+  methods: {
+    clica() {
+      console.log('clicou');
+    }
+  }
+}
+</script>
 
 <style>
 .button {

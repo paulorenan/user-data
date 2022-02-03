@@ -1,10 +1,7 @@
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
-import 'firebase/compat/storage';
-import 'firebase/firestore';
+import 'firebase/compat/firestore';
 
-export const firebaseApp = firebase.initializeApp({
+const config = {
   apiKey: "AIzaSyBdij7U0YlNl4Z5IxkdtuLSPuzRPAdjd38",
   authDomain: "user-data-3a401.firebaseapp.com",
   databaseURL: "https://user-data-3a401-default-rtdb.firebaseio.com",
@@ -13,12 +10,10 @@ export const firebaseApp = firebase.initializeApp({
   messagingSenderId: "593826698958",
   appId: "1:593826698958:web:2430517a453fa27130e29f",
   measurementId: "G-KC9X0DVVEH"
-});
+};
+firebase.initializeApp(config);
+const db = firebase.firestore();
 
-export default function install (Vue) {
-  Object.defineProperty(Vue.prototype, '$firebase', { 
-    get () {
-      return firebaseApp
-    }
-  })
-}
+// db.settings({ timeStampsInSnapshots: true });
+
+export default db;

@@ -62,8 +62,5 @@
         {title: 'Deletar Usuário', icon: 'mdi-delete', to: '/delete'}
       ],
       }),
-    mounted () {
-      console.log(this.$firebase)
-    }
   }
 </script>
