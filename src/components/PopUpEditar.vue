@@ -55,6 +55,13 @@
           >
             Editar
           </v-btn>
+          <v-btn
+            class="mt-4 ml-6"
+            color="error"
+            @click="dialog = false"
+          >
+            Cancelar
+          </v-btn>
         </v-form>
       </v-card>
     </v-dialog>
