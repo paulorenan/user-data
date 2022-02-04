@@ -1,5 +1,24 @@
 <template>
-  <v-container class="pl-0">
+  <v-container>
+    <nav>
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="4000"
+        top
+        color="success"
+      >
+        <span>
+          Usuário excluído com sucesso
+        </span>
+        <v-btn
+          class="ml-4"
+          text
+          @click="snackbar = false"
+        >
+          Fechar
+        </v-btn>
+      </v-snackbar>
+    </nav>
     <v-row
       justify="center"
     >
@@ -8,7 +27,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold">
-          Lista de Usuarios
+          Banco de Dados de Usuários
         </h2>
       </v-col>
       <v-col
@@ -44,22 +63,29 @@
         Id
       </v-btn>
       </v-col>
+      <PopUpAdicionar :editado="editado"/>
     </v-row>
     <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">
+            <th class="text-left" @click="ordenarPorNome">
               Nome
             </th>
-            <th class="text-left">
+            <th class="text-left" @click="ordenarPorEmail">
               E-mail
             </th>
-            <th class="text-left">
+            <th class="text-left" @click="ordenarPorIdade">
               Idade
             </th>
-            <th class="text-left">
+            <th class="text-left" @click="ordenarPorId">
               Id
+            </th>
+            <th class="text-left">
+              Editar
+            </th>
+            <th class="text-left">
+              Excluir
             </th>
           </tr>
         </thead>
@@ -72,6 +98,12 @@
             <td>{{ item.email }}</td>
             <td>{{ item.age }}</td>
             <td>{{ item.id }}</td>
+            <td>
+              <PopUpEditar :user="item" :editado="editado" />
+            </td>
+            <td>
+              <PopUpExcluir :user="item" :editado="editado" :snack="excluidoSnack" />
+            </td>
           </tr>
         </tbody>
       </template>
@@ -81,14 +113,22 @@
 
 <script>
 import db from '../firebase'
+import PopUpEditar from './PopUpEditar.vue'
+import PopUpExcluir from './PopUpExcluir.vue'
+import PopUpAdicionar from './PopUpAdicionar.vue'
   export default {
-    data () {
-      return {
-        backup: [],
-        users: [],
-        search: '',
-      }
+    name: 'CRUD',
+    components: {
+      PopUpEditar,
+      PopUpExcluir,
+      PopUpAdicionar,
     },
+    data: () => ({
+      backup: [],
+      users: [],
+      search: '',
+      snackbar: false,
+    }),
     async created () {
       const users = await db.collection('users').get()
       this.backup = users.docs.map((doc) => ({...doc.data(), id: doc.id}))
@@ -110,6 +150,13 @@ import db from '../firebase'
       searchUsuario() {
         this.users = this.backup.filter(user => user.name.toLowerCase().includes(this.search.toLowerCase()))
       },
-    }
+      editado(array){
+        this.backup = array
+        this.users = array
+      },
+      excluidoSnack(){
+        this.snackbar = true
+      },
+    },
   }
 </script>
