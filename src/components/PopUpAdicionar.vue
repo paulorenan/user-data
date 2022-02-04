@@ -59,7 +59,6 @@
             class="mt-4 ml-6"
             color="error"
             @click="dialog = false"
-            :disabled="!valid"
           >
             Cancelar
           </v-btn>
